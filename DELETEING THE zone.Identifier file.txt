@@ -1,0 +1,14 @@
+DELETEING THE zone.Identifier file from wsl
+it develop after I copy any file from window to wsl,this is "mark of web" metadata in wsl linxu filwsystem
+SOLUTION
+```bash
+find . -name "*:Zone.Identifier" -type f -delete
+```
+find .: Searches within the current directory and all its subfolders.-name "*:Zone.Identifier": Looks for any file matching that specific pattern.-type f: Restricts the search specifically to files.-delete: Instantly removes them without prompting for confirmation
+-----------------------------------
+or making a alias
+If you frequently copy files from Windows and want an easy shortcut to purge these junk files, you can add an alias to your shell configuration (~/.bashrc or ~/.zshrc
+```bash
+alias purge-junk='find . -name "*:Zone.Identifier" -type f -delete'
+```
+Save and reload the terminal (source ~/.bashrc). Now you can just type purge-junk in any directory to clean it instantly.

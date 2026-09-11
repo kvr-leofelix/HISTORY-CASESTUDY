@@ -1,0 +1,49 @@
+GITHUB LIMIT HIT BY 6Gb PHOTO
+SOLUTION
+You are trying to shove a 2.97 GB image dataset into GitHub. GitHub is built for versioning code, not for hosting massive data dumps. That is why your push is failing with a server timeout (HTTP 500 and unexpected disconnect).
+NOTE:
+```BASH
+$ echo "# kaggle_15state_bird_dataset" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:kvr-leofelix/kaggle_15state_bird_dataset.git
+git push -u origin main
+```
+BASH RESPONSE:
+RPC failed; HTTP 500 curl 22 The requested URL returned error: 500
+send-pack: unexpected disconnect while reading sideband packet
+Writing objects: 100% (5766/5766), 2.97 GiB | 2.99 MiB/s, done.
+Total 5766 (delta 11), reused 0 (delta 0), pack-reused 0 (from 0)
+fatal: the remote end hung up unexpectedly
+Everything up-to-date
+NOTE:
+**GitHub strictly limits push sizes over standard HTTP and hard-blocks individual files over 100MB. Your 2.97 GiB payload is causing the connection to drop entirely.**
+```bash
+git reset HEAD~1
+```
+Remove the 3 GB of images from your current Git history so you can isolate your code.
+UNDO THE MASSIVE COMMIT
+```bash 
+echo "photos/" >> .gitignore
+echo "*.csv" >> .gitignore
+```
+Ignore the dataset
+Tell Git to stop tracking the massive folders and files.
+```bash
+git add .gitignore README.md 
+# Add your specific script files here, e.g., git add script.py
+git commit -m "Initial commit with scripts and gitignore"
+```
+RECOMMIT THE CODE
+Add only your essential scripts, README, and the new ignore file.
+```bash
+git remote set-url origin git@github.com:kvr-leofelix/kaggle_15state_bird_dataset.git
+```
+4.Fix your remote URL:1 min.Since origin already exists as HTTPS, you need to update it to SSH, not add a new one.
+```bash
+git push -u origin main
+```
+--------------
+LFS(LARGE FILE STORAGE)
