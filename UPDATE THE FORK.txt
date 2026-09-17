@@ -1,0 +1,32 @@
+UPDATE THE FORK 
+-----------------------
+###1)UI METHOD
+Go to your forked repository on GitHub (e.g., [https://github.com/YOUR-USERNAME/arena](https://github.com/YOUR-USERNAME/arena)).
+Right below the green "Code" button, you will see a button that says Sync fork.
+Click it, and if your fork is behind, click Update branch.
+Open your terminal and pull those new changes down to your local computer:
+```BASH
+git checkout main
+git pull origin main
+```
+
+----------------
+###2)TERMINAL METHOD
+If you insist on doing it via the terminal, the local workspace needs to be explicitly told where the original repository is (called the upstream remote).
+```BASH
+# 1. Add the original repository as a remote named "upstream" (Only do this once)
+git remote add upstream https://github.com/kvr-leofelix/arena.git
+
+# 2. Download the latest changes from the original repository
+git fetch upstream
+
+# 3. Switch to your local main branch
+git checkout main
+
+# 4. Merge the upstream's main branch into your local main branch
+git merge upstream/main
+
+# 5. Push the updated code up to your personal GitHub fork
+git push origin main
+```
+
